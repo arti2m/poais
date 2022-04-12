@@ -1,0 +1,30 @@
+{% extends 'shtab/base.html' %}
+
+{% block content %}
+<title>{{ title }}</title>
+<p>Главная</p>
+<div class="row">
+  <div class="col"><h3>Поручения</h3></div>
+  </div>
+
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Ответственный</th>
+      <th scope="col">Поручение</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in pors %}
+
+    <tr>
+    <td><strong>{{ i.pk }}</strong></td>
+    <td><a href="{{ i.get_absolute_url }}">{{ i.otv }}</a></td>
+    <td>{{ i.por }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
