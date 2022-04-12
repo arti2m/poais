@@ -37,6 +37,23 @@ class PoruchenieAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     # list_editable = ['redzone']
     search_fields = ['otv__surname','soisp__surname']
     list_filter = ['shtab__dateshtabe','obiaz','redzone','kritvopr','porneizprot','factsrivsroka','gpr','otvotpo']
+    raw_id_fields = ['otv', ]
+
+    fieldsets = (
+        ('Информация по поручению', {
+            'fields': ('shtab','numberpor',
+                       ('otv', 'soisp'),'srokisp',
+                       ('por','obiaz','gpr','factsrivsroka','porneizprot','kritvopr','redzone','forpo'))
+        }),
+        ('Работа с поручением', {
+            # 'classes': ('extrapretty',),
+            'fields': (('itogi', 'dateisp'), ('otprzapr','polzapr','kratkopisisppor'),
+                       'anal','otvotpo')
+        }),
+    )
+    # Не используемые поля statysisp,forpo
+    filter_horizontal = ('soisp',)
+
     # autocomplete_fields = ['otvotpo']
 
     # def get_form(self, request, obj=None, change=False, **kwargs):

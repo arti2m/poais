@@ -1,5 +1,5 @@
 from django.db import models
-
+from time import strftime
 
 class Predsedatel(models.Model):
     predsedatel = models.CharField (max_length=15, blank=True, verbose_name='председатель')
@@ -17,7 +17,11 @@ class Shtab(models.Model):
 
 
     def __str__(self):
-        return f'{self.dateshtabe} {self.predsedatel}'
+        return f'{self.dateshtabe.strftime("%d.%m.%Y")} {self.predsedatel}'
+
+    # def date(self):
+    #     date = self.dateshtabe
+    #     return date.strftime("%d.%m.%Y")
 
 
     class Meta:

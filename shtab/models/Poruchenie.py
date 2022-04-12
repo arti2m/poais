@@ -43,7 +43,7 @@ class Poruchenie(models.Model):
     dateisp = models.DateField (null=True, blank=True, verbose_name='дата исполнения')
     itogi = models.TextField(blank=True, verbose_name='итоги')
     otprzapr = models.TextField(blank=True, verbose_name='информация по направлению запросов')
-    polzapr = models.TextField(blank=True, verbose_name='bнформация по получению ответа на запрос')
+    polzapr = models.TextField(blank=True, verbose_name='Информация по получению ответа на запрос')
     kratkopisisppor = models.TextField(blank=True, verbose_name='краткое описание исполнения поручения')
     anal = models.TextField(blank=True, verbose_name='аналитика ("архивные" комментарии)')
     otvotpo = models.ForeignKey(User, on_delete=models.PROTECT, blank=True,null=True, verbose_name='Ответственный от ПО',default=User)
