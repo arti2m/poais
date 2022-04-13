@@ -9,6 +9,9 @@ from import_export import resources
 from import_export import fields
 from import_export.widgets import ForeignKeyWidget
 
+from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter
+
+
 # Register your models here.
 # admin.site.register(Ispolnitel)
 # admin.site.register(Organization)
@@ -29,19 +32,19 @@ class PoruchenieResource(resources.ModelResource):
 # class Filter(admin.ModelAdmin):
 #     list_display = ['object', 'otv', 'por']
 #     list_filter = ['redzone',]
-x = 3
+
 @admin.register(Poruchenie)
 class PoruchenieAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = PoruchenieResource
     list_display = ['shtab','object','otv', 'por']
     # list_editable = ['redzone']
     search_fields = ['otv__surname','soisp__surname']
-    list_filter = ['shtab__dateshtabe','obiaz','redzone','kritvopr','porneizprot','factsrivsroka','gpr','otvotpo']
+    list_filter = [('shtab', RelatedDropdownFilter),'obiaz','redzone','kritvopr','porneizprot','factsrivsroka','gpr','otvotpo']
     raw_id_fields = ['otv', ]
 
     fieldsets = (
         ('Информация по поручению', {
-            'fields': ('shtab','numberpor',
+            'fields': ('shtab', 'numberpor',
                        ('otv', 'soisp'),'srokisp',
                        ('por','obiaz','gpr','factsrivsroka','porneizprot','kritvopr','redzone','forpo'))
         }),
