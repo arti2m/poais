@@ -11,10 +11,10 @@ from django.conf import settings
 # Create your models here.
 
 class Forpo(models.Model):
-    stat = models.CharField(max_length=20, blank=True, verbose_name='для ПО')
+    statforpo = models.CharField(max_length=20, blank=True, verbose_name='для ПО')
 
     def __str__(self):
-        return self.stat
+        return self.statforpo
 
     class Meta:
         verbose_name = 'для ПО'
@@ -34,14 +34,14 @@ class Poruchenie(models.Model):
     shtab = models.ForeignKey(Shtab, on_delete=models.PROTECT, null=True, blank=True, verbose_name='штаб')
     numberpor = models.PositiveSmallIntegerField (blank=True,null=True, verbose_name='№')
     otv = models.ForeignKey(Ispolnitel, on_delete=models.PROTECT, null=True, blank=True, verbose_name='ответственный',related_name='tasks_as_otv')
-    soisp = models.ManyToManyField(Ispolnitel, null=True, blank=True, verbose_name='соисполнитель', related_name='tasks_as_soisp')
+    soisp = models.ManyToManyField(Ispolnitel, blank=True, verbose_name='соисполнитель', related_name='tasks_as_soisp')
     object = models.ForeignKey(Object, on_delete=models.PROTECT, null=True, blank=True, verbose_name='объект')
     por = models.TextField(verbose_name='поручение')
     srokisp = models.DateField (null=True, blank=True, verbose_name='срок исполнения')
     forpo = models.ForeignKey (Forpo, on_delete=models.PROTECT, blank=True,null=True, verbose_name='для ПО')
     statysisp = models.ForeignKey (Statysisp, on_delete=models.PROTECT, verbose_name='статус исполнения')
     dateisp = models.DateField (null=True, blank=True, verbose_name='дата исполнения')
-    itogi = models.TextField(blank=True, verbose_name='итоги')
+    itogi = models.TextField(null=True, blank=True, verbose_name='итоги')
     otprzapr = models.TextField(blank=True, verbose_name='информация по направлению запросов')
     polzapr = models.TextField(blank=True, verbose_name='Информация по получению ответа на запрос')
     kratkopisisppor = models.TextField(blank=True, verbose_name='краткое описание исполнения поручения')

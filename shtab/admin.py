@@ -13,21 +13,29 @@ from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDrop
 
 
 # Register your models here.
-# admin.site.register(Ispolnitel)
-# admin.site.register(Organization)
+
 admin.site.register(Sortforpo)
-admin.site.register(Forpo)
-admin.site.register(Statysisp)
-# admin.site.register(Poruchenie)
 admin.site.register(Predsedatel)
-admin.site.register(Shtab)
+
+@admin.register(Statysisp)
+class ObjectForpo(admin.ModelAdmin):
+    list_display = ['pk','stat']
+
+@admin.register(Forpo)
+class ObjectForpo(admin.ModelAdmin):
+    list_display = ['pk','statforpo']
+
+
+@admin.register(Shtab)
+class ObjectShtab(admin.ModelAdmin):
+    list_display = ['pk','dateshtabe','predsedatel']
+    search_fields = ['dateshtabe']
 
 #_____________________  ПОРУЧЕНИЯ ______________________________________
 
 class PoruchenieResource(resources.ModelResource):
     class Meta:
         model = Poruchenie
-        exclude = ['id']
 
 # class Filter(admin.ModelAdmin):
 #     list_display = ['object', 'otv', 'por']
@@ -69,18 +77,15 @@ class PoruchenieAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 class ObjectResource(resources.ModelResource):
     kratknaim = fields.Field(column_name='Краткое наименование', attribute='kratknaim')
     sortforpo = fields.Field(column_name='Сортировка для ПО', attribute='sortforpo', widget=ForeignKeyWidget(Sortforpo,'category'))
-    # redzone = fields.Field(column_name='В красной зоне', attribute='redzone')
-
 
     class Meta:
         model = Object
-        exclude = ['id']
+        # exclude = ['id']
 
 @admin.register(Object)
 class ObjectAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = ObjectResource
     list_display = ['kratknaim','numberobjectaip','objectaip']
-    # list_editable = ['redzone']
     search_fields = ['kratknaim']
 # admin.site.register(Object, ObjectAdmin)
 
@@ -128,7 +133,7 @@ class IspolnitelResource(resources.ModelResource):
 class IspolnitelAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = IspolnitelResource
     # list_display = ['surname','name','patronymic','dolzhnost,','org','mail1']
-    list_display = ['surname', 'name', 'patronymic','dolzhnost', 'org', 'mail1']
+    list_display = ['pk','surname', 'name', 'patronymic','dolzhnost', 'org', 'mail1']
     list_display_links = ['surname',]
     # list_display = ['dolzhnost']
     # list_editable = ['dolzhnost',]

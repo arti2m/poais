@@ -18,7 +18,7 @@ class Ispolnitel(models.Model):
     patronymic = models.CharField (max_length=16,verbose_name='отчество')
     dolzhnost = models.CharField (max_length=150,verbose_name='должность')
     org = models.ForeignKey(Organization,on_delete=models.PROTECT,verbose_name='Организация')
-    mail1 = models.EmailField(max_length=254, null=True, blank=True,verbose_name='электронная почта')
+    mail1 = models.TextField(null=True, blank=True,verbose_name='электронная почта')
 
 
     def __str__(self):
