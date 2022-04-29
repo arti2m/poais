@@ -48,11 +48,11 @@ class PoruchenieAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     # list_editable = ['redzone']
     search_fields = ['otv__surname','soisp__surname']
     list_filter = [('shtab', RelatedDropdownFilter),'obiaz','redzone','kritvopr','porneizprot','factsrivsroka','gpr','otvotpo']
-    raw_id_fields = ['otv', ]
+    raw_id_fields = ['otv', 'object']
 
     fieldsets = (
         ('Информация по поручению', {
-            'fields': ('shtab', 'numberpor',
+            'fields': ('shtab', 'numberpor','object',
                        ('otv', 'soisp'),'srokisp',
                        ('por','obiaz','gpr','factsrivsroka','porneizprot','kritvopr','redzone','forpo'))
         }),
@@ -85,7 +85,7 @@ class ObjectResource(resources.ModelResource):
 @admin.register(Object)
 class ObjectAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = ObjectResource
-    list_display = ['kratknaim','numberobjectaip','objectaip']
+    list_display = ['pk','kratknaim','numberobjectaip','objectaip']
     search_fields = ['kratknaim']
 # admin.site.register(Object, ObjectAdmin)
 
